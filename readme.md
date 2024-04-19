@@ -26,24 +26,21 @@ This module is intended as an extension of the [CSS ontology](https://github.com
 ## Examples
 
 ## Usage
-
-1. **Import the CSSE ontology**
+### 1. **Import the CSSE ontology**
 In order to use this ontology to model effects in your own ontology, you must first import the CSSE ontology using its W3ID IRI `http://www.w3id.org/plattfom-i40/css-effect`. This unversioned IRI always redirects to the latest version of the ontology. You should always use the versioned IRI to prevent unwanted changes to your ontology. An example import in Turtle syntaxt looks something like this:
-
 ``` Turtle
 <http://www.example.com/myOntology> rdf:type owl:Ontology ;
 	owl:imports <http://www.w3id.org/plattform-i40/csse/{version}>> ;
 ```
+Make sure to replace `{version}` with a version of your choice (see all versions [here](https://github.com/aljoshakoecher/css-effect/releases))
 
-Make sure to replace `{version}` with a version of your choice (see all versions [here](/releases))
-
-2. **Define your properties**
+### 2. **Define your properties**
 The CSSE ontology defines base data properties for the aforementioned types of properties (product, process, resource, environment). Add your properties as subclasses to these properties. As an example, let's consider a property `ex:hasHoleDepth`, which is defined as a subproperty of `CSSE:hasProductProperty`:
 ```turtle
 ex:hasHoleDepth ⊏ CSSE:hasProductProperty
 ```
 
-3. **Define an effect achieved by a capability**
+### 3. **Define an effect achieved by a capability**
 Effects are modeled as OWL class expressions using an initial and target state which may both be specified by properties. Define your requirement by specifying the allowed propety values in the source and target state. Consider the following example, which shows a class expression using the previously defined property for a simplified drilling capability:
 
 ```Turtle
@@ -57,7 +54,7 @@ ex:DrillingEffect ≡ CSSE:State
 
 This effect is defined as a source state (first `CSSE:State`) without any restrictions. This state has a transition to exactly one state, the target state. The target state allows all hole depths <=100. Note that the two additional expressiosn `ex:hasHoleDepth exactly 1 rdfs:Literal` and `CSSE:hasTransitionTo exactly 1 CSSE:State` are needed to restrict the open world assumption underlying OWL in order to get valid matches.
 
-4. **Define a required effect**
+### 4. **Define a required effect**
 Required effects are modeled in exactly the same way as effects of capabilities. Consider the following required effect:
 
 ```Turtle
@@ -77,7 +74,7 @@ ex:RequiredEffect ≡ CSSE:State and (
 
 This effect specifies a property `ex:hasWidth` on the source state and requires the `ex:hasHoleDepth` property to be 120 on the target state.
 
-5. **Match capability effects with requirements**
+### 5. **Match capability effects with requirements**
 In order to prove whether a capability's effect can fulfill a given required effect, the two effects need to be intersected and an OWL reasoner like Pellet can be used to check for consistency. In our example, we can define a match as `ex:Match ≡ ex:DrillingEffect ⊓ ex:RequiredEffect`. With the effect definitions given in 3 and 4, this intersection is empty. `ex:Match` will be inferred to be equal to `owl:Nothing`. This is because the required value of 120 for `ex:hasHoleDepth` in the target state of `ex:RequiredEffect` can not be achieved by `ex:DrillingEffect`.
 
 If you want to trigger an inconsistency and let the solver generate an explanation, you can manually assign an individual to the class `ex:Match` so that it cannot be equal to `owl:Nothing` anymore. 
