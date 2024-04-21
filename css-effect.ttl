@@ -6,7 +6,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix CSSE: <http://www.w3id.org/plattfom-i40/css-effect#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.w3id.org/plattfom-i40/css-effect> .
+@base <http://www.w3id.org/plattfom-i40/css-effect#> .
 
 <http://www.w3id.org/plattfom-i40/css-effect> rdf:type owl:Ontology ;
                                                owl:versionIRI <http://www.w3id.org/plattfom-i40/css-effect/0.0.1> ;
@@ -95,10 +95,6 @@ CSSE:EnvironmentEffect rdf:type owl:Class ;
                        rdfs:subClassOf CSSE:Effect .
 
 
-###  http://www.w3id.org/plattfom-i40/css-effect#Match
-CSSE:Match rdf:type owl:Class .
-
-
 ###  http://www.w3id.org/plattfom-i40/css-effect#ProcessEffect
 CSSE:ProcessEffect rdf:type owl:Class ;
                    owl:equivalentClass [ rdf:type owl:Class ;
@@ -183,20 +179,6 @@ CSSE:State rdf:type owl:Class .
 ###  http://www.w3id.org/plattfom-i40/css-effect#TargetState
 CSSE:TargetState rdf:type owl:Class ;
                  rdfs:subClassOf CSSE:State .
-
-
-#################################################################
-#    Individuals
-#################################################################
-
-###  http://www.w3id.org/plattfom-i40/css-effect/e_prop1
-<http://www.w3id.org/plattfom-i40/css-effect/e_prop1> rdf:type owl:NamedIndividual ;
-                                                      CSSE:hasProductProperty 12 .
-
-
-###  http://www.w3id.org/plattfom-i40/css-effect/m
-<http://www.w3id.org/plattfom-i40/css-effect/m> rdf:type owl:NamedIndividual ,
-                                                         CSSE:Match .
 
 
 #################################################################
