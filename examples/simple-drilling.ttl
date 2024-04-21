@@ -88,12 +88,7 @@
 
 ###  http://www.example.com/simpleDrilling#RequiredEffect
 :RequiredEffect rdf:type owl:Class ;
-                owl:equivalentClass [ owl:intersectionOf ( :LongDrillDrillingEffect
-                                                           :RequiredEffect
-                                                         ) ;
-                                      rdf:type owl:Class
-                                    ] ,
-                                    [ owl:intersectionOf ( <http://www.w3id.org/plattfom-i40/css-effect#State>
+                owl:equivalentClass [ owl:intersectionOf ( <http://www.w3id.org/plattfom-i40/css-effect#State>
                                                            [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
                                                                                     owl:onProperty :hasHoleDepth ;
                                                                                     owl:hasValue 0
