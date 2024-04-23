@@ -26,16 +26,16 @@ This module is intended as an extension of the [CSS ontology](https://github.com
 ## Examples
 
 ## Usage
-### 1. **Import the CSSE ontology**
-In order to use this ontology to model effects in your own ontology, you must first import the CSSE ontology using its W3ID IRI `http://www.w3id.org/plattfom-i40/css-effect`. This unversioned IRI always redirects to the latest version of the ontology. You should always use the versioned IRI to prevent unwanted changes to your ontology. An example import in Turtle syntaxt looks something like this:
+### 1. **Import the CSS-Effect ontology**
+In order to use this ontology to model effects in your own ontology, you must first import the CSS-Effect ontology using its W3ID IRI `http://www.w3id.org/plattfom-i40/css-effect`. This unversioned IRI always redirects to the latest version of the ontology. You should always use the versioned IRI to prevent unwanted changes to your ontology. An example import in Turtle syntaxt looks something like this:
 ``` Turtle
 <http://www.example.com/myOntology> rdf:type owl:Ontology ;
-	owl:imports <http://www.w3id.org/plattform-i40/csse/{version}>> ;
+	owl:imports <http://www.w3id.org/plattform-i40/css-effect/{version}>> ;
 ```
 Make sure to replace `{version}` with a version of your choice (see all versions [here](https://github.com/aljoshakoecher/css-effect/releases))
 
 ### 2. **Define your properties**
-The CSSE ontology defines base data properties for the aforementioned types of properties (product, process, resource, environment). Add your properties as subclasses to these properties. As an example, let's consider a property `ex:hasHoleDepth`, which is defined as a subproperty of `CSSE:hasProductProperty`:
+The CSS-Effect ontology defines base data properties for the aforementioned types of properties (product, process, resource, environment). Add your properties as subclasses to these properties. As an example, let's consider a property `ex:hasHoleDepth`, which is defined as a subproperty of `CSSE:hasProductProperty`:
 ```turtle
 ex:hasHoleDepth ⊏ CSSE:hasProductProperty
 ```
