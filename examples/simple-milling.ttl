@@ -1,0 +1,250 @@
+@prefix : <http://www.example.com/simpleDrilling#> .
+@prefix ex: <http://example.com/simple-milling#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.example.com/simpleDrilling#> .
+
+<http://www.example.com/simple-milling> rdf:type owl:Ontology ;
+                                         owl:imports <http://www.w3id.org/plattfom-i40/css-effect/0.0.1> .
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://example.com/simple-milling#hasDrillTemperature
+ex:hasDrillTemperature rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf <http://www.w3id.org/plattfom-i40/css-effect#hasResourceProperty> .
+
+
+###  http://example.com/simple-milling#hasPocketDepth
+ex:hasPocketDepth rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf <http://www.w3id.org/plattfom-i40/css-effect#hasProductProperty> .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://example.com/simple-milling#DeepMilling
+ex:DeepMilling rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#achievesEffect> ;
+                                     owl:someValuesFrom ex:DeepMillingEffect
+                                   ] ;
+               rdfs:subClassOf <http://www.w3id.org/hsu-aut/css#Capability> ;
+               rdfs:comment "Capability to mill pockets with a long mill up to 200 deep" .
+
+
+###  http://example.com/simple-milling#DeepMillingEffect
+ex:DeepMillingEffect rdf:type owl:Class ;
+                     owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasSourceState> ;
+                                                                  owl:someValuesFrom [ owl:intersectionOf ( <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                                                                            [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                                                     owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                     owl:hasValue 0
+                                                                                                                                   ]
+                                                                                                                                   [ rdf:type owl:Restriction ;
+                                                                                                                                     owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                   ]
+                                                                                                                                 ) ;
+                                                                                                              rdf:type owl:Class
+                                                                                                            ]
+                                                                                                          ) ;
+                                                                                       rdf:type owl:Class
+                                                                                     ]
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasTargetState> ;
+                                                                  owl:someValuesFrom [ owl:intersectionOf ( <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                                                                            [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                                                     owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                     owl:allValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                                                                                         owl:onDatatype xsd:integer ;
+                                                                                                                                                         owl:withRestrictions ( [ xsd:maxInclusive 200
+                                                                                                                                                                                ]
+                                                                                                                                                                              )
+                                                                                                                                                       ]
+                                                                                                                                   ]
+                                                                                                                                   [ rdf:type owl:Restriction ;
+                                                                                                                                     owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                   ]
+                                                                                                                                 ) ;
+                                                                                                              rdf:type owl:Class
+                                                                                                            ]
+                                                                                                          ) ;
+                                                                                       rdf:type owl:Class
+                                                                                     ]
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasSourceState> ;
+                                                                  owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasTargetState> ;
+                                                                  owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                                ]
+                                                              ) ;
+                                           rdf:type owl:Class
+                                         ] .
+
+
+###  http://example.com/simple-milling#DeepMillingMatch
+ex:DeepMillingMatch rdf:type owl:Class ;
+                    owl:equivalentClass [ owl:intersectionOf ( ex:DeepMillingEffect
+                                                               ex:RequiredEffect
+                                                             ) ;
+                                          rdf:type owl:Class
+                                        ] .
+
+
+###  http://example.com/simple-milling#RequiredEffect
+ex:RequiredEffect rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( <http://www.w3id.org/plattfom-i40/css-effect#Effect>
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasSourceState> ;
+                                                               owl:someValuesFrom [ owl:intersectionOf ( <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                                                                         [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                                                  owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                  owl:hasValue 0
+                                                                                                                                ]
+                                                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                                                  owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                ]
+                                                                                                                              ) ;
+                                                                                                           rdf:type owl:Class
+                                                                                                         ]
+                                                                                                       ) ;
+                                                                                    rdf:type owl:Class
+                                                                                  ]
+                                                             ]
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasTargetState> ;
+                                                               owl:someValuesFrom [ owl:intersectionOf ( <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                                                                         [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                                                  owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                  owl:hasValue 80
+                                                                                                                                ]
+                                                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                                                  owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                ]
+                                                                                                                              ) ;
+                                                                                                           rdf:type owl:Class
+                                                                                                         ]
+                                                                                                       ) ;
+                                                                                    rdf:type owl:Class
+                                                                                  ]
+                                                             ]
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasSourceState> ;
+                                                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                               owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                             ]
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasTargetState> ;
+                                                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                               owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                             ]
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty ex:hasDrillTemperature ;
+                                                               owl:allValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                   owl:onDatatype xsd:integer ;
+                                                                                   owl:withRestrictions ( [ xsd:maxInclusive 150
+                                                                                                          ]
+                                                                                                        )
+                                                                                 ]
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf <http://www.w3id.org/plattfom-i40/css-effect#Effect> ;
+                  rdfs:comment "This is an example required effect to mill a pocket with a depth of 80" .
+
+
+###  http://example.com/simple-milling#ShallowMilling
+ex:ShallowMilling rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#achievesEffect> ;
+                                        owl:someValuesFrom ex:ShallowMillingEffect
+                                      ] ;
+                  rdfs:subClassOf <http://www.w3id.org/hsu-aut/css#Capability> ;
+                  rdfs:comment "Capability to mill pockets with a short mill up to 100 deep" .
+
+
+###  http://example.com/simple-milling#ShallowMillingEffect
+ex:ShallowMillingEffect rdf:type owl:Class ;
+                        owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasSourceState> ;
+                                                                     owl:someValuesFrom [ owl:intersectionOf ( <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                                                                               [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                                                        owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                        owl:hasValue 0
+                                                                                                                                      ]
+                                                                                                                                      [ rdf:type owl:Restriction ;
+                                                                                                                                        owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                      ]
+                                                                                                                                    ) ;
+                                                                                                                 rdf:type owl:Class
+                                                                                                               ]
+                                                                                                             ) ;
+                                                                                          rdf:type owl:Class
+                                                                                        ]
+                                                                   ]
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasTargetState> ;
+                                                                     owl:someValuesFrom [ owl:intersectionOf ( <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                                                                               [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                                                        owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                        owl:allValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                                                                                            owl:onDatatype xsd:integer ;
+                                                                                                                                                            owl:withRestrictions ( [ xsd:maxInclusive 100
+                                                                                                                                                                                   ]
+                                                                                                                                                                                 )
+                                                                                                                                                          ]
+                                                                                                                                      ]
+                                                                                                                                      [ rdf:type owl:Restriction ;
+                                                                                                                                        owl:onProperty ex:hasPocketDepth ;
+                                                                                                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                      ]
+                                                                                                                                    ) ;
+                                                                                                                 rdf:type owl:Class
+                                                                                                               ]
+                                                                                                             ) ;
+                                                                                          rdf:type owl:Class
+                                                                                        ]
+                                                                   ]
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasSourceState> ;
+                                                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                     owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                                   ]
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasTargetState> ;
+                                                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                     owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                                   ]
+                                                                 ) ;
+                                              rdf:type owl:Class
+                                            ] .
+
+
+###  http://example.com/simple-milling#ShallowMillingMatch
+ex:ShallowMillingMatch rdf:type owl:Class ;
+                       owl:equivalentClass [ owl:intersectionOf ( ex:RequiredEffect
+                                                                  ex:ShallowMillingEffect
+                                                                ) ;
+                                             rdf:type owl:Class
+                                           ] .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
