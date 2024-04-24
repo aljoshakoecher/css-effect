@@ -9,7 +9,7 @@
 @base <http://www.w3id.org/plattfom-i40/css-effect#> .
 
 <http://www.w3id.org/plattfom-i40/css-effect> rdf:type owl:Ontology ;
-                                               owl:versionIRI <http://www.w3id.org/plattfom-i40/css-effect/0.0.1> ;
+                                               owl:versionIRI <http://www.w3id.org/plattfom-i40/css-effect/0.0.2> ;
                                                owl:imports <http://www.w3id.org/hsu-aut/css/1.0.1> ;
                                                rdfs:comment """A lightweight ontology module that defines effects in the context of manufacturing. An effect is defined as the delta in properties between two states. On the one hand, certain effects are typically required. On the other hand, effects are achieved by capabilities. There are four types of effects, which can be considered views focusing on a subset of properties: 
 A ProductEffect is an effect in relation to product properties.
