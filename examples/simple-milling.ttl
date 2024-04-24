@@ -14,9 +14,9 @@
 #    Data properties
 #################################################################
 
-###  http://example.com/simple-milling#hasDrillTemperature
-ex:hasDrillTemperature rdf:type owl:DatatypeProperty ;
-                       rdfs:subPropertyOf <http://www.w3id.org/plattfom-i40/css-effect#hasResourceProperty> .
+###  http://example.com/simple-milling#hasMillTemperature
+ex:hasMillTemperature rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf <http://www.w3id.org/plattfom-i40/css-effect#hasResourceProperty> .
 
 
 ###  http://example.com/simple-milling#hasPocketDepth
@@ -49,7 +49,7 @@ ex:DeepMillingEffect rdf:type owl:Class ;
                                                                                                                                    ]
                                                                                                                                    [ rdf:type owl:Restriction ;
                                                                                                                                      owl:onProperty ex:hasPocketDepth ;
-                                                                                                                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                     owl:cardinality "1"^^xsd:nonNegativeInteger
                                                                                                                                    ]
                                                                                                                                  ) ;
                                                                                                               rdf:type owl:Class
@@ -72,7 +72,7 @@ ex:DeepMillingEffect rdf:type owl:Class ;
                                                                                                                                    ]
                                                                                                                                    [ rdf:type owl:Restriction ;
                                                                                                                                      owl:onProperty ex:hasPocketDepth ;
-                                                                                                                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                     owl:cardinality "1"^^xsd:nonNegativeInteger
                                                                                                                                    ]
                                                                                                                                  ) ;
                                                                                                               rdf:type owl:Class
@@ -83,13 +83,21 @@ ex:DeepMillingEffect rdf:type owl:Class ;
                                                                 ]
                                                                 [ rdf:type owl:Restriction ;
                                                                   owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasSourceState> ;
-                                                                  owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                                   owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
                                                                 ]
                                                                 [ rdf:type owl:Restriction ;
                                                                   owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasTargetState> ;
-                                                                  owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                                   owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty ex:hasMillTemperature ;
+                                                                  owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty ex:hasMillTemperature ;
+                                                                  owl:maxCardinality "300"^^xsd:nonNegativeInteger
                                                                 ]
                                                               ) ;
                                            rdf:type owl:Class
@@ -117,7 +125,7 @@ ex:RequiredEffect rdf:type owl:Class ;
                                                                                                                                 ]
                                                                                                                                 [ rdf:type owl:Restriction ;
                                                                                                                                   owl:onProperty ex:hasPocketDepth ;
-                                                                                                                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                  owl:cardinality "1"^^xsd:nonNegativeInteger
                                                                                                                                 ]
                                                                                                                               ) ;
                                                                                                            rdf:type owl:Class
@@ -135,7 +143,7 @@ ex:RequiredEffect rdf:type owl:Class ;
                                                                                                                                 ]
                                                                                                                                 [ rdf:type owl:Restriction ;
                                                                                                                                   owl:onProperty ex:hasPocketDepth ;
-                                                                                                                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                  owl:cardinality "1"^^xsd:nonNegativeInteger
                                                                                                                                 ]
                                                                                                                               ) ;
                                                                                                            rdf:type owl:Class
@@ -146,22 +154,13 @@ ex:RequiredEffect rdf:type owl:Class ;
                                                              ]
                                                              [ rdf:type owl:Restriction ;
                                                                owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasSourceState> ;
-                                                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                                owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
                                                              ]
                                                              [ rdf:type owl:Restriction ;
                                                                owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasTargetState> ;
-                                                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                                owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
-                                                             ]
-                                                             [ rdf:type owl:Restriction ;
-                                                               owl:onProperty ex:hasDrillTemperature ;
-                                                               owl:allValuesFrom [ rdf:type rdfs:Datatype ;
-                                                                                   owl:onDatatype xsd:integer ;
-                                                                                   owl:withRestrictions ( [ xsd:maxInclusive 150
-                                                                                                          ]
-                                                                                                        )
-                                                                                 ]
                                                              ]
                                                            ) ;
                                         rdf:type owl:Class
@@ -191,7 +190,7 @@ ex:ShallowMillingEffect rdf:type owl:Class ;
                                                                                                                                       ]
                                                                                                                                       [ rdf:type owl:Restriction ;
                                                                                                                                         owl:onProperty ex:hasPocketDepth ;
-                                                                                                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                        owl:cardinality "1"^^xsd:nonNegativeInteger
                                                                                                                                       ]
                                                                                                                                     ) ;
                                                                                                                  rdf:type owl:Class
@@ -214,7 +213,7 @@ ex:ShallowMillingEffect rdf:type owl:Class ;
                                                                                                                                       ]
                                                                                                                                       [ rdf:type owl:Restriction ;
                                                                                                                                         owl:onProperty ex:hasPocketDepth ;
-                                                                                                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                                                                                                        owl:cardinality "1"^^xsd:nonNegativeInteger
                                                                                                                                       ]
                                                                                                                                     ) ;
                                                                                                                  rdf:type owl:Class
@@ -225,12 +224,12 @@ ex:ShallowMillingEffect rdf:type owl:Class ;
                                                                    ]
                                                                    [ rdf:type owl:Restriction ;
                                                                      owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasSourceState> ;
-                                                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                                      owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
                                                                    ]
                                                                    [ rdf:type owl:Restriction ;
                                                                      owl:onProperty <http://www.w3id.org/plattfom-i40/css-effect#hasTargetState> ;
-                                                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                                      owl:onClass <http://www.w3id.org/plattfom-i40/css-effect#State>
                                                                    ]
                                                                  ) ;
