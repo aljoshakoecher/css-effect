@@ -31,8 +31,16 @@ CSSE:achievesEffect rdf:type owl:ObjectProperty ;
                     rdfs:range CSSE:Effect .
 
 
-###  http://www.w3id.org/plattfom-i40/css-effect#hasTransitionTo
-CSSE:hasTransitionTo rdf:type owl:ObjectProperty .
+###  http://www.w3id.org/plattfom-i40/css-effect#hasSourceState
+CSSE:hasSourceState rdf:type owl:ObjectProperty ;
+                    rdfs:domain CSSE:Transition ;
+                    rdfs:range CSSE:SourceState .
+
+
+###  http://www.w3id.org/plattfom-i40/css-effect#hasTargetState
+CSSE:hasTargetState rdf:type owl:ObjectProperty ;
+                    rdfs:domain CSSE:Transition ;
+                    rdfs:range CSSE:TargetState .
 
 
 #################################################################
@@ -40,19 +48,28 @@ CSSE:hasTransitionTo rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://www.w3id.org/plattfom-i40/css-effect#hasEnvironmentProperty
-CSSE:hasEnvironmentProperty rdf:type owl:DatatypeProperty .
+CSSE:hasEnvironmentProperty rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf CSSE:hasProperty .
 
 
 ###  http://www.w3id.org/plattfom-i40/css-effect#hasProcessProperty
-CSSE:hasProcessProperty rdf:type owl:DatatypeProperty .
+CSSE:hasProcessProperty rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf CSSE:hasProperty .
 
 
 ###  http://www.w3id.org/plattfom-i40/css-effect#hasProductProperty
-CSSE:hasProductProperty rdf:type owl:DatatypeProperty .
+CSSE:hasProductProperty rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf CSSE:hasProperty .
+
+
+###  http://www.w3id.org/plattfom-i40/css-effect#hasProperty
+CSSE:hasProperty rdf:type owl:DatatypeProperty ;
+                 rdfs:domain CSSE:Transition .
 
 
 ###  http://www.w3id.org/plattfom-i40/css-effect#hasResourceProperty
-CSSE:hasResourceProperty rdf:type owl:DatatypeProperty .
+CSSE:hasResourceProperty rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf CSSE:hasProperty .
 
 
 #################################################################
@@ -61,108 +78,142 @@ CSSE:hasResourceProperty rdf:type owl:DatatypeProperty .
 
 ###  http://www.w3id.org/plattfom-i40/css-effect#Effect
 CSSE:Effect rdf:type owl:Class ;
-            owl:equivalentClass [ owl:intersectionOf ( CSSE:State
-                                                       [ rdf:type owl:Restriction ;
-                                                         owl:onProperty CSSE:hasTransitionTo ;
-                                                         owl:someValuesFrom CSSE:State
-                                                       ]
-                                                     ) ;
-                                  rdf:type owl:Class
-                                ] .
+            owl:equivalentClass CSSE:Transition ;
+            rdfs:comment "Effects correspond to transitions" .
 
 
 ###  http://www.w3id.org/plattfom-i40/css-effect#EnvironmentEffect
 CSSE:EnvironmentEffect rdf:type owl:Class ;
-                       owl:equivalentClass [ rdf:type owl:Class ;
-                                             owl:unionOf ( [ owl:intersectionOf ( CSSE:State
-                                                                                  [ rdf:type owl:Restriction ;
-                                                                                    owl:onProperty CSSE:hasEnvironmentProperty ;
-                                                                                    owl:someValuesFrom xsd:integer
+                       owl:equivalentClass [ owl:intersectionOf ( CSSE:Effect
+                                                                  [ rdf:type owl:Class ;
+                                                                    owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                                    owl:onProperty CSSE:hasSourceState ;
+                                                                                    owl:someValuesFrom [ owl:intersectionOf ( CSSE:State
+                                                                                                                              [ rdf:type owl:Restriction ;
+                                                                                                                                owl:onProperty CSSE:hasEnvironmentProperty ;
+                                                                                                                                owl:someValuesFrom xsd:integer
+                                                                                                                              ]
+                                                                                                                            ) ;
+                                                                                                         rdf:type owl:Class
+                                                                                                       ]
                                                                                   ]
-                                                                                ) ;
-                                                             rdf:type owl:Class
-                                                           ]
-                                                           [ rdf:type owl:Restriction ;
-                                                             owl:onProperty CSSE:hasTransitionTo ;
-                                                             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                             owl:onClass [ rdf:type owl:Restriction ;
-                                                                           owl:onProperty CSSE:hasEnvironmentProperty ;
-                                                                           owl:someValuesFrom xsd:integer
-                                                                         ]
-                                                           ]
-                                                         )
+                                                                                  [ rdf:type owl:Restriction ;
+                                                                                    owl:onProperty CSSE:hasTargetState ;
+                                                                                    owl:someValuesFrom [ owl:intersectionOf ( CSSE:State
+                                                                                                                              [ rdf:type owl:Restriction ;
+                                                                                                                                owl:onProperty CSSE:hasEnvironmentProperty ;
+                                                                                                                                owl:someValuesFrom xsd:integer
+                                                                                                                              ]
+                                                                                                                            ) ;
+                                                                                                         rdf:type owl:Class
+                                                                                                       ]
+                                                                                  ]
+                                                                                )
+                                                                  ]
+                                                                ) ;
+                                             rdf:type owl:Class
                                            ] ;
                        rdfs:subClassOf CSSE:Effect .
 
 
 ###  http://www.w3id.org/plattfom-i40/css-effect#ProcessEffect
 CSSE:ProcessEffect rdf:type owl:Class ;
-                   owl:equivalentClass [ rdf:type owl:Class ;
-                                         owl:unionOf ( [ owl:intersectionOf ( CSSE:State
-                                                                              [ rdf:type owl:Restriction ;
-                                                                                owl:onProperty CSSE:hasProcessProperty ;
-                                                                                owl:someValuesFrom xsd:integer
+                   owl:equivalentClass [ owl:intersectionOf ( CSSE:Effect
+                                                              [ rdf:type owl:Class ;
+                                                                owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                                owl:onProperty CSSE:hasSourceState ;
+                                                                                owl:someValuesFrom [ owl:intersectionOf ( CSSE:State
+                                                                                                                          [ rdf:type owl:Restriction ;
+                                                                                                                            owl:onProperty CSSE:hasProcessProperty ;
+                                                                                                                            owl:someValuesFrom xsd:integer
+                                                                                                                          ]
+                                                                                                                        ) ;
+                                                                                                     rdf:type owl:Class
+                                                                                                   ]
                                                                               ]
-                                                                            ) ;
-                                                         rdf:type owl:Class
-                                                       ]
-                                                       [ rdf:type owl:Restriction ;
-                                                         owl:onProperty CSSE:hasTransitionTo ;
-                                                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                         owl:onClass [ rdf:type owl:Restriction ;
-                                                                       owl:onProperty CSSE:hasProcessProperty ;
-                                                                       owl:someValuesFrom xsd:integer
-                                                                     ]
-                                                       ]
-                                                     )
+                                                                              [ rdf:type owl:Restriction ;
+                                                                                owl:onProperty CSSE:hasTargetState ;
+                                                                                owl:someValuesFrom [ owl:intersectionOf ( CSSE:State
+                                                                                                                          [ rdf:type owl:Restriction ;
+                                                                                                                            owl:onProperty CSSE:hasProcessProperty ;
+                                                                                                                            owl:someValuesFrom xsd:integer
+                                                                                                                          ]
+                                                                                                                        ) ;
+                                                                                                     rdf:type owl:Class
+                                                                                                   ]
+                                                                              ]
+                                                                            )
+                                                              ]
+                                                            ) ;
+                                         rdf:type owl:Class
                                        ] ;
                    rdfs:subClassOf CSSE:Effect .
 
 
 ###  http://www.w3id.org/plattfom-i40/css-effect#ProductEffect
 CSSE:ProductEffect rdf:type owl:Class ;
-                   owl:equivalentClass [ rdf:type owl:Class ;
-                                         owl:unionOf ( [ owl:intersectionOf ( CSSE:State
-                                                                              [ rdf:type owl:Restriction ;
-                                                                                owl:onProperty CSSE:hasProductProperty ;
-                                                                                owl:someValuesFrom xsd:integer
+                   owl:equivalentClass [ owl:intersectionOf ( CSSE:Effect
+                                                              [ rdf:type owl:Class ;
+                                                                owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                                owl:onProperty CSSE:hasSourceState ;
+                                                                                owl:someValuesFrom [ owl:intersectionOf ( CSSE:State
+                                                                                                                          [ rdf:type owl:Restriction ;
+                                                                                                                            owl:onProperty CSSE:hasProductProperty ;
+                                                                                                                            owl:someValuesFrom xsd:integer
+                                                                                                                          ]
+                                                                                                                        ) ;
+                                                                                                     rdf:type owl:Class
+                                                                                                   ]
                                                                               ]
-                                                                            ) ;
-                                                         rdf:type owl:Class
-                                                       ]
-                                                       [ rdf:type owl:Restriction ;
-                                                         owl:onProperty CSSE:hasTransitionTo ;
-                                                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                         owl:onClass [ rdf:type owl:Restriction ;
-                                                                       owl:onProperty CSSE:hasProductProperty ;
-                                                                       owl:someValuesFrom xsd:integer
-                                                                     ]
-                                                       ]
-                                                     )
+                                                                              [ rdf:type owl:Restriction ;
+                                                                                owl:onProperty CSSE:hasTargetState ;
+                                                                                owl:someValuesFrom [ owl:intersectionOf ( CSSE:State
+                                                                                                                          [ rdf:type owl:Restriction ;
+                                                                                                                            owl:onProperty CSSE:hasProductProperty ;
+                                                                                                                            owl:someValuesFrom xsd:integer
+                                                                                                                          ]
+                                                                                                                        ) ;
+                                                                                                     rdf:type owl:Class
+                                                                                                   ]
+                                                                              ]
+                                                                            )
+                                                              ]
+                                                            ) ;
+                                         rdf:type owl:Class
                                        ] ;
                    rdfs:subClassOf CSSE:Effect .
 
 
 ###  http://www.w3id.org/plattfom-i40/css-effect#ResourceEffect
 CSSE:ResourceEffect rdf:type owl:Class ;
-                    owl:equivalentClass [ rdf:type owl:Class ;
-                                          owl:unionOf ( [ owl:intersectionOf ( CSSE:State
-                                                                               [ rdf:type owl:Restriction ;
-                                                                                 owl:onProperty CSSE:hasResourceProperty ;
-                                                                                 owl:someValuesFrom xsd:integer
+                    owl:equivalentClass [ owl:intersectionOf ( CSSE:Effect
+                                                               [ rdf:type owl:Class ;
+                                                                 owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                                 owl:onProperty CSSE:hasSourceState ;
+                                                                                 owl:someValuesFrom [ owl:intersectionOf ( CSSE:State
+                                                                                                                           [ rdf:type owl:Restriction ;
+                                                                                                                             owl:onProperty CSSE:hasResourceProperty ;
+                                                                                                                             owl:someValuesFrom xsd:integer
+                                                                                                                           ]
+                                                                                                                         ) ;
+                                                                                                      rdf:type owl:Class
+                                                                                                    ]
                                                                                ]
-                                                                             ) ;
-                                                          rdf:type owl:Class
-                                                        ]
-                                                        [ rdf:type owl:Restriction ;
-                                                          owl:onProperty CSSE:hasTransitionTo ;
-                                                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                          owl:onClass [ rdf:type owl:Restriction ;
-                                                                        owl:onProperty CSSE:hasResourceProperty ;
-                                                                        owl:someValuesFrom xsd:integer
-                                                                      ]
-                                                        ]
-                                                      )
+                                                                               [ rdf:type owl:Restriction ;
+                                                                                 owl:onProperty CSSE:hasTargetState ;
+                                                                                 owl:someValuesFrom [ owl:intersectionOf ( CSSE:State
+                                                                                                                           [ rdf:type owl:Restriction ;
+                                                                                                                             owl:onProperty CSSE:hasResourceProperty ;
+                                                                                                                             owl:someValuesFrom xsd:integer
+                                                                                                                           ]
+                                                                                                                         ) ;
+                                                                                                      rdf:type owl:Class
+                                                                                                    ]
+                                                                               ]
+                                                                             )
+                                                               ]
+                                                             ) ;
+                                          rdf:type owl:Class
                                         ] ;
                     rdfs:subClassOf CSSE:Effect .
 
@@ -181,17 +232,38 @@ CSSE:TargetState rdf:type owl:Class ;
                  rdfs:subClassOf CSSE:State .
 
 
+###  http://www.w3id.org/plattfom-i40/css-effect#Transition
+CSSE:Transition rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                             owl:onProperty CSSE:hasSourceState ;
+                                                             owl:someValuesFrom CSSE:State
+                                                           ]
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty CSSE:hasTargetState ;
+                                                             owl:someValuesFrom CSSE:State
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:comment "A transition is something that connects a source and a target state." .
+
+
 #################################################################
-#    General axioms
+#    Individuals
 #################################################################
 
-[ rdf:type owl:AllDisjointProperties ;
-  owl:members ( CSSE:hasEnvironmentProperty
-                CSSE:hasProcessProperty
-                CSSE:hasProductProperty
-                CSSE:hasResourceProperty
-              )
-] .
+###  http://www.w3id.org/plattfom-i40/css-effect#s1
+CSSE:s1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3id.org/plattfom-i40/css-effect#s2
+CSSE:s2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3id.org/plattfom-i40/css-effect#t
+CSSE:t rdf:type owl:NamedIndividual ;
+       CSSE:hasSourceState CSSE:s1 ;
+       CSSE:hasTargetState CSSE:s2 .
 
 
 ###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
